@@ -27,12 +27,14 @@ body {
 
 #body a.highlight, #body a.highlight:hover, #body a.highlight:focus {
     text-decoration: none;
-    outline: none;
-    outline: 0;
 }
 #body a.highlight {
-    line-height: 1.1;
+  line-height: 1.2;
     display: inline-block;
+}
+#body a.highlight:focus-visible {
+  outline: 2px solid #0082a7;
+  outline-offset: 2px;
 }
 #body a.highlight:after {
     display: block;
@@ -94,9 +96,10 @@ body {
           transition: all 0.15s !important;
 }
 .btn:focus {
-  /*outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;*/
+  outline: 2px solid #0082a7 !important;
+  outline-offset: 2px;
+}
+.btn:focus:not(:focus-visible) {
   outline: none !important;
 }
 .btn:hover,
@@ -124,23 +127,26 @@ body {
 /* anchors */
 .anchor {
   color: #00bdf3;
-  font-size: 0.5em;
+  font-size: 0.65em;
   cursor:pointer;
-  visibility:hidden;
+  visibility: visible;
+  opacity: 0;
   margin-left: 0.5em;
     position: absolute;
     margin-top:0.1em;
+  transition: opacity 0.2s ease;
 }
 
-h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover .anchor, h6:hover .anchor {
-  visibility:visible;
+h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover .anchor, h6:hover .anchor,
+h2:focus-within .anchor, h3:focus-within .anchor, h4:focus-within .anchor, h5:focus-within .anchor, h6:focus-within .anchor {
+  opacity: 1;
 }
 
 /* Redfines headers style */
 
 h2, h3, h4, h5, h6 {
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.25;
 }
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -148,31 +154,31 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
   line-height: 110% !important;
   margin: 2.5rem 0 1.5rem 0;
 }
 
 h3 {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
   line-height: 110% !important;
   margin: 2rem 0 1rem 0;
 }
 
 h4 {
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 2.3vw, 1.5rem);
   line-height: 110% !important;
   margin: 1.5rem 0 0.75rem 0;
 }
 
 h5 {
-  font-size: 1rem;
+  font-size: clamp(1.05rem, 1.8vw, 1.15rem);
   line-height: 110% !important;
   margin: 1rem 0 0.2rem 0;
 }
 
 h6 {
-  font-size: 0.5rem;
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
   line-height: 110% !important;
   margin: 0.5rem 0 0.2rem 0;
 }
@@ -223,7 +229,14 @@ figcaption h4 {
 }
 
 .select-style select:focus {
-    outline: none;
+    outline: 2px solid #0082a7;
+    outline-offset: 2px;
+}
+
+@media (hover: none) {
+  .anchor {
+    opacity: 1;
+  }
 }
 
 .select-style :hover {
@@ -231,6 +244,10 @@ figcaption h4 {
 }
 
 @media only all and (max-width: 47.938em) {
+  #TableOfContents {
+      font-size: 14px !important;
+  }
+
   #breadcrumbs .links, #top-github-link-text {
       display: none;
   }
